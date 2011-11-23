@@ -6,6 +6,7 @@ package
 	import Box2D.Collision.Shapes.b2CircleDef;
 	import Box2D.Dynamics.b2Body;
 	import Box2D.Dynamics.b2BodyDef;
+	import scenario.Scenario;
 	//import com.as3joelib.box2d.dynamics.joints.ConstantVolumeJointDef;
 	import com.as3joelib.utils.Singleton;
 	import engine.Physics;
@@ -22,7 +23,7 @@ package
 	public class Main extends Sprite
 	{
 		
-		private var soft_ball:SoftBall;
+		private var _scenario:Scenario;
 		
 		public function Main():void
 		{
@@ -39,6 +40,12 @@ package
 			
 			this.setup();
 			this.addListeners();
+			this.render();
+		}
+		
+		private function render():void 
+		{
+			
 		}
 		
 		private function setup():void
@@ -46,6 +53,8 @@ package
 			Singleton.getInstance().data.physics = new Physics();
 			
 			this.addChild(Physics(Singleton.getInstance().data.physics).getDebugDrawSprite());
+			
+			this.addChild(this._scenario.getRoot());
 			
 			var floor:Box = new Box();
 			floor.setPositionInPixels(0, this.stage.stageHeight - 200);
@@ -55,8 +64,8 @@ package
 			//circle.setPositionInPixels(30, 50);
 			//circle.addToWorld();
 			
-			this.soft_ball = new SoftBall(50, 10);
-			this.addChild(this.soft_ball.node);
+			//this.soft_ball = new SoftBall(50, 10);
+			//this.addChild(this.soft_ball.node);
 			//this.soft_ball.node.y += 10;
 			
 			///TEST CONSTANT VOLUME JOINT DEF
@@ -111,7 +120,7 @@ package
 		private function onEnterFrame(e:Event):void
 		{
 			Physics(Singleton.getInstance().data.physics).getWorld().Step(1 / 60, 10);
-			this.soft_ball.step();
+			//this.soft_ball.step();
 		}
 	
 	}

@@ -35,7 +35,7 @@ package actors.primitives
 		
 		private function createBodyDef():void 
 		{
-			this.body_def = new b2BodyDef();
+			this._body_def = new b2BodyDef();
 		}
 	}
 }

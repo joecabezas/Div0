@@ -14,9 +14,9 @@ package actors
 	 */
 	public class Actor
 	{
-		protected var sprite:Sprite;
-		protected var body:b2Body;
-		protected var body_def:b2BodyDef;
+		protected var _node:Sprite;
+		protected var _body:b2Body;
+		protected var _body_def:b2BodyDef;
 		
 		protected var shapes:Vector.<b2ShapeDef>;
 		
@@ -32,31 +32,36 @@ package actors
 		
 		public function addToWorld():b2Body
 		{
-			this.body = Physics(Singleton.getInstance().data.physics).getWorld().CreateBody(this.body_def);
+			this._body = Physics(Singleton.getInstance().data.physics).getWorld().CreateBody(this._body_def);
 			
 			//create shapes
 			for each (var s:b2ShapeDef in this.shapes)
 			{
-				this.body.CreateShape(s);
+				this._body.CreateShape(s);
 			}
-			this.body.SetMassFromShapes();
+			this._body.SetMassFromShapes();
 			
-			return this.body;
+			return this._body;
 		}
 		
 		public function setPositionInPixels(x:Number, y:Number):void
 		{
-			this.body_def.position.Set(x / Physics.WORLD_SCALE, y / Physics.WORLD_SCALE);
+			this._body_def.position.Set(x / Physics.WORLD_SCALE, y / Physics.WORLD_SCALE);
 		}
 		
 		public function getBody():b2Body
 		{
-			return this.body;
+			return this._body;
 		}
 		
 		public function getAnchor():b2Vec2
 		{
-			return this.body.GetLocalCenter();
+			return this._body.GetLocalCenter();
+		}
+		
+		public function getNode():Sprite 
+		{
+			return this._node;
 		}
 	}
 }
